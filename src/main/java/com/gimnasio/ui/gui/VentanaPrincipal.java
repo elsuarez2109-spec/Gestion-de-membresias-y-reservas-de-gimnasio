@@ -1,4 +1,4 @@
-package UI.consola.GUI;
+package ui.gui;
 
 public class VentanaPrincipal {
     

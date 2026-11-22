@@ -1,4 +1,4 @@
-package UI.consola;
+package ui.consola;
 public class ConsolaApp {
     
 }
