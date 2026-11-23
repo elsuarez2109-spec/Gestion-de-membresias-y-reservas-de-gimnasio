@@ -1,5 +1,6 @@
 package reservas;
 
-public class ObservadorCupo {
-    
+public interface ObservadorCupo {
+
+    void alRecibirEvento(EventoCupo evento);
 }
