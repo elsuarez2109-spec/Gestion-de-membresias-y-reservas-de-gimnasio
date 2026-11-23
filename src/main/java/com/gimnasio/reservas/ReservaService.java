@@ -49,14 +49,22 @@ public class ReservaService {
         this.reloj = reloj;
     }
 
+    
     public synchronized void programarClase(ClaseGrupal clase) {
-        if (clase == null || clases.containsKey(clase.getId())) {
-            throw new IllegalArgumentException(
-                    "Clase invalida o duplicada");
-        }
 
-        clases.put(clase.getId(), clase);
+    if (clase == null || clases.containsKey(clase.getId())) {
+        throw new IllegalArgumentException(
+                "Clase invalida o duplicada");
     }
+
+    AsignadorListaEspera asignador =
+            new AsignadorListaEspera(this::puedeReservar);
+
+    clase.suscribir(asignador);
+
+    clases.put(clase.getId(), clase);
+}
+
 
     public synchronized ClaseGrupal buscarClase(String claseId) {
         ClaseGrupal clase = clases.get(claseId);
