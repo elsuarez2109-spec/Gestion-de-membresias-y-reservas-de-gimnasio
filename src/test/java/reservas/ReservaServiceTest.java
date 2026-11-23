@@ -5,6 +5,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDateTime;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneOffset;
 
 public class ReservaServiceTest {
 
@@ -123,7 +126,7 @@ public class ReservaServiceTest {
         assertEquals(2, yoga.getCuposDisponibles());
     }
 
-    // PRUEBA 5: No reservar cuando la clase esta llena
+    // PRUEBA 5: No reservar cuando no hay cupos
     @Test
     public void noReservarSinCupos() {
 
@@ -142,9 +145,160 @@ public class ReservaServiceTest {
                         "CLASE05", "CLIENTE_B"
                 )
         );
+
+        assertEquals(0, yoga.getCuposDisponibles());
     }
 
-    // Metodo auxiliar para crear clases
+    // PRUEBA 6: Infraccion por cancelacion tardia
+    @Test
+    public void registrarInfraccionPorCancelacionTardia() {
+
+        ReservaService servicio = new ReservaService(
+                clienteId -> true, 4, 3
+        );
+
+        LocalDateTime inicio =
+                LocalDateTime.now().plusHours(2);
+
+        ClaseGrupal yoga = new ClaseGrupal(
+                "CLASE06",
+                "Yoga",
+                "Instructor Juan",
+                inicio,
+                inicio.plusHours(1),
+                2
+        );
+
+        servicio.programarClase(yoga);
+
+        Reserva reserva = servicio.reservar(
+                "CLASE06", "CLIENTE_A"
+        );
+
+        servicio.cancelarReserva(
+                "CLASE06", reserva.getId()
+        );
+
+        assertEquals(
+                Reserva.Estado.CANCELADA,
+                reserva.getEstado()
+        );
+
+        assertEquals(
+                1,
+                servicio.contarInfracciones("CLIENTE_A")
+        );
+    }
+
+    // PRUEBA 7: Infraccion por no asistencia
+    @Test
+    public void registrarInfraccionPorNoAsistencia() {
+
+        // Simulamos una hora posterior a la clase
+        Clock reloj = Clock.fixed(
+                Instant.parse("2026-11-22T15:00:00Z"),
+                ZoneOffset.UTC
+        );
+
+        ReservaService servicio = new ReservaService(
+                clienteId -> true, 4, 3, reloj
+        );
+
+        // La clase termina a las 13:00
+        ClaseGrupal yoga = new ClaseGrupal(
+                "CLASE07",
+                "Yoga",
+                "Instructor Juan",
+                LocalDateTime.of(2026, 11, 22, 12, 0),
+                LocalDateTime.of(2026, 11, 22, 13, 0),
+                2
+        );
+
+        servicio.programarClase(yoga);
+
+        // Preparamos una reserva confirmada
+        Reserva reserva = yoga.reservar("CLIENTE_A");
+
+        // Registramos que el cliente no asistio
+        servicio.registrarNoAsistencia(
+                "CLASE07", reserva.getId()
+        );
+
+        // Comprobamos el estado de la reserva
+        assertEquals(
+                Reserva.Estado.NO_ASISTIO,
+                reserva.getEstado()
+        );
+
+        // Comprobamos que se genero una infraccion
+        assertEquals(
+                1,
+                servicio.contarInfracciones("CLIENTE_A")
+        );
+    }
+
+    // PRUEBA 8: Bloqueo por infracciones
+    @Test
+    public void bloquearClientePorInfracciones() {
+
+        // El limite es de 2 infracciones
+        ReservaService servicio = new ReservaService(
+                clienteId -> true, 4, 2
+        );
+
+        for (int i = 1; i <= 2; i++) {
+
+            LocalDateTime inicio =
+                    LocalDateTime.now().plusHours(2);
+
+            String claseId = "BLOQUEO" + i;
+
+            ClaseGrupal clase = new ClaseGrupal(
+                    claseId,
+                    "Yoga",
+                    "Instructor Juan",
+                    inicio,
+                    inicio.plusHours(1),
+                    2
+            );
+
+            servicio.programarClase(clase);
+
+            Reserva reserva = servicio.reservar(
+                    claseId, "CLIENTE_A"
+            );
+
+            servicio.cancelarReserva(
+                    claseId, reserva.getId()
+            );
+        }
+
+        assertEquals(
+                2,
+                servicio.contarInfracciones("CLIENTE_A")
+        );
+
+        assertTrue(
+                servicio.estaBloqueado("CLIENTE_A")
+        );
+
+        assertFalse(
+                servicio.puedeReservar("CLIENTE_A")
+        );
+
+        // Comprobamos que no puede reservar otra clase
+        ClaseGrupal otraClase = crearClase("CLASE09", 3);
+        servicio.programarClase(otraClase);
+
+        assertThrows(
+                IllegalStateException.class,
+                () -> servicio.reservar(
+                        "CLASE09", "CLIENTE_A"
+                )
+        );
+    }
+
+    // METODO AUXILIAR: Crear clases grupales
     private ClaseGrupal crearClase(String id, int cupos) {
 
         LocalDateTime inicio =
