@@ -1,3 +1,4 @@
+package com.gimnasio.reservas;
 package reservas;
 import java.time.LocalDateTime;
 import java.util.UUID;

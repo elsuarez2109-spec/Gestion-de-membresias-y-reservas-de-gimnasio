@@ -1,4 +1,4 @@
-package fachada;
+package com.gimnasio.fachada;
 
 import reservas.ClaseGrupal;
 import reservas.Reserva;

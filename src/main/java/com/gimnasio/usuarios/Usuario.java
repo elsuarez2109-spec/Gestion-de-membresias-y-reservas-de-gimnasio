@@ -1,4 +1,4 @@
-package usuarios;
+package com.gimnasio.usuarios;
 
 public abstract class Usuario {
     private final String id;
