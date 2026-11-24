@@ -1,4 +1,4 @@
-package usuarios;
+package com.gimnasio.usuarios;
 
 import java.util.UUID;
 

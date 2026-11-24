@@ -1,4 +1,4 @@
-package fachada;
+package com.gimnasio.fachada;
 
 public class GimnasioFacade {
     

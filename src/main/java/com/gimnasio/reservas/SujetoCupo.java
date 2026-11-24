@@ -1,4 +1,4 @@
-package reservas;
+package com.gimnasio.reservas;
 
 public class SujetoCupo {
     
