@@ -1,9 +1,6 @@
 package com.gimnasio.reservas;
-
-package reservas;
 import java.time.LocalDateTime;
 public class EventoCupo {
-
     public enum Tipo {
         CUPO_LIBERADO,
         CUPO_ASIGNADO
