@@ -1,5 +1,7 @@
 package facturacion;
 
-public class PoliticaCobro {
-    
+public interface PoliticaCobro {
+    String getNombre();
+    boolean aplicable(ContextoCobro contexto);
+    double cobro(ContextoCobro contexto, double subtotal);
 }
