@@ -4,6 +4,12 @@ import com.gimnasio.reservas.ClaseGrupal;
 import com.gimnasio.reservas.Reserva;
 import com.gimnasio.reservas.ReservaService;
 
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDateTime;
+
+
 public class GimnasioFacadeTest {
 
     @Test
