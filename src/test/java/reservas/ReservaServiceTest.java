@@ -1,4 +1,4 @@
-package reservas;
+package com.gimnasio.reservas;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,8 +9,6 @@ import java.time.Instant;
 import java.time.ZoneOffset;
 
 public class ReservaServiceTest {
-
-    // PRUEBA 1: Reserva y lista de espera
     @Test
     public void probarReservaYListaEspera() {
 
@@ -54,7 +52,7 @@ public class ReservaServiceTest {
         );
     }
 
-    // PRUEBA 2: No permitir reservas duplicadas
+    
     @Test
     public void noPermitirReservaDuplicada() {
 
@@ -77,7 +75,6 @@ public class ReservaServiceTest {
         assertEquals(2, yoga.getCuposDisponibles());
     }
 
-    // PRUEBA 3: Membresia invalida
     @Test
     public void noPermitirMembresiaInvalida() {
 
@@ -98,7 +95,6 @@ public class ReservaServiceTest {
         assertEquals(5, yoga.getCuposDisponibles());
     }
 
-    // PRUEBA 4: Cancelacion de reserva
     @Test
     public void cancelarReservaCorrectamente() {
 
@@ -125,7 +121,7 @@ public class ReservaServiceTest {
         assertEquals(2, yoga.getCuposDisponibles());
     }
 
-    // PRUEBA 5: No reservar cuando no hay cupos
+    
     @Test
     public void noReservarSinCupos() {
 
@@ -148,7 +144,7 @@ public class ReservaServiceTest {
         assertEquals(0, yoga.getCuposDisponibles());
     }
 
-    // PRUEBA 6: Infraccion por cancelacion tardia
+   
     @Test
     public void registrarInfraccionPorCancelacionTardia() {
 
@@ -189,11 +185,11 @@ public class ReservaServiceTest {
         );
     }
 
-    // PRUEBA 7: Infraccion por no asistencia
+
     @Test
     public void registrarInfraccionPorNoAsistencia() {
 
-        // Simulamos una hora posterior a la clase
+    
         Clock reloj = Clock.fixed(
                 Instant.parse("2026-11-22T15:00:00Z"),
                 ZoneOffset.UTC
@@ -203,7 +199,7 @@ public class ReservaServiceTest {
                 clienteId -> true, 4, 3, reloj
         );
 
-        // La clase termina a las 13:00
+     
         ClaseGrupal yoga = new ClaseGrupal(
                 "CLASE07",
                 "Yoga",
@@ -215,32 +211,31 @@ public class ReservaServiceTest {
 
         servicio.programarClase(yoga);
 
-        // Preparamos una reserva confirmada
+      
         Reserva reserva = yoga.reservar("CLIENTE_A");
 
-        // Registramos que el cliente no asistio
+        
         servicio.registrarNoAsistencia(
                 "CLASE07", reserva.getId()
         );
 
-        // Comprobamos el estado de la reserva
+    
         assertEquals(
                 Reserva.Estado.NO_ASISTIO,
                 reserva.getEstado()
         );
 
-        // Comprobamos que se genero una infraccion
         assertEquals(
                 1,
                 servicio.contarInfracciones("CLIENTE_A")
         );
     }
 
-    // PRUEBA 8: Bloqueo por infracciones
+ 
     @Test
     public void bloquearClientePorInfracciones() {
 
-        // El limite es de 2 infracciones
+    
         ReservaService servicio = new ReservaService(
                 clienteId -> true, 4, 2
         );
@@ -285,7 +280,7 @@ public class ReservaServiceTest {
                 servicio.puedeReservar("CLIENTE_A")
         );
 
-        // Comprobamos que no puede reservar otra clase
+    
         ClaseGrupal otraClase = crearClase("CLASE09", 3);
         servicio.programarClase(otraClase);
 
@@ -297,7 +292,6 @@ public class ReservaServiceTest {
         );
     }
 
-    // METODO AUXILIAR: Crear clases grupales
     private ClaseGrupal crearClase(String id, int cupos) {
 
         LocalDateTime inicio =
