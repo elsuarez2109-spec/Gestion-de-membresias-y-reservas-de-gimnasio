@@ -1,4 +1,4 @@
-package facturacion;
+package com.gimnasio.facturacion;
 
 public interface Plan {
     String getNombre();

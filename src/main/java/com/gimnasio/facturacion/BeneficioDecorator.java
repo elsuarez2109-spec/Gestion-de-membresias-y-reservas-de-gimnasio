@@ -1,7 +1,7 @@
-package facturacion;
+package com.gimnasio.facturacion;
 
 public abstract class BeneficioDecorator implements Plan {
-    protected final plan Plan;
+    protected final Plan plan;
     protected BeneficioDecorator(Plan plan){
         if (plan==null){
             throw new IllegalArgumentException("Debe tener un plan activo");

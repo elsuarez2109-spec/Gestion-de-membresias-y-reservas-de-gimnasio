@@ -1,4 +1,4 @@
-package usuarios;
+package com.gimnasio.usuarios;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.security.MessageDigest;

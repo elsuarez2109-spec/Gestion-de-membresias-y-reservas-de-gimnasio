@@ -1,6 +1,6 @@
-package facturacion;
+package com.gimnasio.facturacion;
 
-public class SpaDecorator implements BeneficioDecorator {
+public class SpaDecorator extends BeneficioDecorator {
     private static final double COSTO=40000;
     public SpaDecorator(Plan plan){
         super(plan);
@@ -9,6 +9,7 @@ public class SpaDecorator implements BeneficioDecorator {
     protected String getNombreBeneficio(){
         return "Spa";
     }
+    @Override
     protected double getCostoBeneficio(){
         return COSTO;
     }

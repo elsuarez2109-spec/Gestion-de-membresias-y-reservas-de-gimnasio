@@ -1,6 +1,6 @@
-package facturacion;
+package com.gimnasio.facturacion;
 
-public class EntrenadorPersonalDecorator implements BeneficioDecorator {
+public class EntrenadorPersonalDecorator extends BeneficioDecorator {
     private static final double COSTO=60000;
     public EntrenadorPersonalDecorator(Plan plan){
         super(plan);

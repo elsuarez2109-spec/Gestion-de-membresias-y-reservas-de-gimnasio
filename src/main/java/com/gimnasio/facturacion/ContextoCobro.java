@@ -1,4 +1,4 @@
-package facturacion;
+package com.gimnasio.facturacion;
 
 public class ContextoCobro {
     private final Plan plan;

@@ -1,4 +1,4 @@
-package ui.consola;
+package com.gimnasio.ui.consola;
 public class ConsolaApp {
     
 }

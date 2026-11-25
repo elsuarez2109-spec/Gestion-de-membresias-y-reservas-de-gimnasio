@@ -1,4 +1,4 @@
-package usuarios;
+package com.gimnasio.usuarios;
 
 public class Instructor extends Usuario {
     public Instructor(String id, String nombre, String correo, String passwordHash) {

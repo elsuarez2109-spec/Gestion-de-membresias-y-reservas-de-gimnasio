@@ -1,4 +1,4 @@
-package facturacion;
+package com.gimnasio.facturacion;
 
 public final class PlanFactory {
     public enum Tipo{
@@ -10,7 +10,9 @@ public final class PlanFactory {
     public static Plan crear(Tipo tipo){
         return crear(tipo, 0);
     }
-    @param miembros
+    /**
+     * @param miembros Número de miembros para el plan grupal
+     */
     public static Plan crear(Tipo tipo, int miembros){
         if(tipo==null){
             throw new IllegalArgumentException("El tipo de plan debe ser valido");

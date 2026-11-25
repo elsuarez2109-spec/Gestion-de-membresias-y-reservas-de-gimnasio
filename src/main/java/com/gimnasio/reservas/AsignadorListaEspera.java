@@ -1,4 +1,4 @@
-package reservas;
+package com.gimnasio.reservas;
 
 import java.util.function.Predicate;
 
