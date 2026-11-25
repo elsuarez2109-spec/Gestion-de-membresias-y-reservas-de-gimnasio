@@ -1,4 +1,4 @@
-package facturacion;
+package com.gimnasio.facturacion;
 
 public class PlanGrupal implements Plan {
     private static final double COSTO_MENSUAL_MIEMBRO=70000;
