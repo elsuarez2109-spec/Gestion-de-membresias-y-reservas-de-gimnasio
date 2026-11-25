@@ -1,14 +1,8 @@
+package com.gimnasio.fachada;
 
-package fachada;
-
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.time.LocalDateTime;
-
-import reservas.ClaseGrupal;
-import reservas.Reserva;
-import reservas.ReservaService;
+import com.gimnasio.reservas.ClaseGrupal;
+import com.gimnasio.reservas.Reserva;
+import com.gimnasio.reservas.ReservaService;
 
 public class GimnasioFacadeTest {
 
