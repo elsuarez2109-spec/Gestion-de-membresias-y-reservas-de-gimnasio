@@ -1,5 +1,4 @@
 package com.gimnasio.fachada;
-
 import com.gimnasio.reservas.ClaseGrupal;
 import com.gimnasio.reservas.Reserva;
 import com.gimnasio.reservas.ReservaService;
