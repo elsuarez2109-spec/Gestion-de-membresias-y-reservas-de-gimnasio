@@ -1,8 +1,8 @@
 package com.gimnasio.fachada;
 
-import reservas.ClaseGrupal;
-import reservas.Reserva;
-import reservas.ReservaService;
+import com.gimnasio.reservas.ClaseGrupal;
+import com.gimnasio.reservas.Reserva;
+import com.gimnasio.reservas.ReservaService;
 
 public class GimnasioFacade {
 
