@@ -16,6 +16,9 @@ public class ReservaService {
     private final List<Infraccion> infracciones =
             new ArrayList<>();
 
+    private final List<ObservadorCupo> observadoresGlobales =
+            new ArrayList<>();
+
     private final Predicate<String> membresiaValida;
     private final int horasCancelacion;
     private final int limiteInfracciones;
@@ -62,9 +65,36 @@ public class ReservaService {
 
     clase.suscribir(asignador);
 
+    // El asignador va primero; los notificadores avisan de un hecho ya ocurrido
+    for (ObservadorCupo o : observadoresGlobales) {
+        clase.suscribir(o);
+    }
+
     clases.put(clase.getId(), clase);
 }
 
+
+    public synchronized List<ClaseGrupal> listarClases() {
+        List<ClaseGrupal> lista = new ArrayList<>(clases.values());
+        lista.sort((a, b) -> a.getInicio().compareTo(b.getInicio()));
+        return lista;
+    }
+
+    public synchronized List<Reserva> reservasDeCliente(String clienteId) {
+        List<Reserva> resultado = new ArrayList<>();
+        for (ClaseGrupal clase : clases.values()) {
+            for (Reserva r : clase.getReservas()) {
+                if (r.getClienteId().equals(clienteId)) {
+                    resultado.add(r);
+                }
+            }
+        }
+        return resultado;
+    }
+
+    public synchronized List<Reserva> reservasDeClase(String claseId) {
+        return buscarClase(claseId).getReservas();
+    }
 
     public synchronized ClaseGrupal buscarClase(String claseId) {
         ClaseGrupal clase = clases.get(claseId);
@@ -198,6 +228,8 @@ public class ReservaService {
 
     public synchronized void registrarObservador(
             ObservadorCupo observador) {
+
+        observadoresGlobales.add(observador);
 
         for (ClaseGrupal clase : clases.values()) {
             clase.suscribir(observador);

@@ -35,6 +35,11 @@ public class EventoCupo {
         return momento;
     }
 
+    @Override
+    public String toString() {
+        return mensaje();
+    }
+
     public String mensaje() {
 
         switch (tipo) {

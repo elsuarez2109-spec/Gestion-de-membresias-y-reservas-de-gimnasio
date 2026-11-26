@@ -62,6 +62,10 @@ public class ClaseGrupal implements SujetoCupo {
         return aforoMaximo - ocupados;
     }
 
+    public synchronized List<Reserva> getReservas() {
+        return new ArrayList<>(reservas);
+    }
+
     public synchronized boolean hayCupo() {
         return getCuposDisponibles() > 0;
     }
@@ -158,4 +162,3 @@ public class ClaseGrupal implements SujetoCupo {
         }
     }
 }
-
