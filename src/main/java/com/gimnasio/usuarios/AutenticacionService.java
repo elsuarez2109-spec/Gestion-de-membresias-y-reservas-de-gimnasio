@@ -40,6 +40,11 @@ public class AutenticacionService {
         }
         return sesiones.abrir(usuario);
     }
+    public Optional<Usuario> buscarPorCorreo(String correo) {
+        if (correo == null) return Optional.empty();
+        return Optional.ofNullable(usuariosPorCorreo.get(correo.trim().toLowerCase()));
+    }
+
     public Optional<Usuario> usuarioDeSesion(String token) {
         return sesiones.validar(token);
     }
