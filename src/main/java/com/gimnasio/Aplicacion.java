@@ -1,5 +1,4 @@
 package com.gimnasio;
-
 import com.gimnasio.fachada.GimnasioFacade;
 import com.gimnasio.facturacion.FacturacionService;
 import com.gimnasio.facturacion.MembresiaService;
