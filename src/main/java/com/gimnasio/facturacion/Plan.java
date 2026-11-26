@@ -1,5 +1,7 @@
 package com.gimnasio.facturacion;
 
-public class Plan {
-    
+public interface Plan {
+    String getNombre();
+    String getDescripcion();
+    double getCostoMensual();
 }
