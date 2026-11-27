@@ -97,7 +97,7 @@ Todo el diseño está en la **https://github.com/elsuarez2109-spec/Gestion-de-me
 
 Usamos IA como apoyo durante el desarrollo.
 
-
-- Interfaces y fachada — trabajo conjunto
-
-[Curso · Universidad · Docente · Semestre]
+---
+Juan Esteban Suarez Garcia
+Leonor Gabriela Rubio Delgado
+Gabriel Francisco Santos Pineda
