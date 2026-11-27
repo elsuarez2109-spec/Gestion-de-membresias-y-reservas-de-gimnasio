@@ -26,16 +26,7 @@ Rutinas de entrenamiento, inventario, pasarelas de pago reales y cualquier recur
 - **Java 17 o superior** (`java -version` te dice cuál tienes).
 - **Maven**, solo si quieres compilarlo tú. Si descargas el `.jar` ya hecho, no lo necesitas.
 
-### Opción A: descargar el ejecutable
-1. Entra a la pestaña **Actions** de este repositorio y abre la última ejecución.
-2. Baja a **Artifacts** y descarga `gimnasio-jar`.
-3. Descomprime el zip y ejecuta:
-
-```bash
-java -jar gimnasio-1.0-SNAPSHOT.jar
-```
-
-### Opción B: compilarlo
+### Opción A: compilarlo
 ```bash
 git clone https://github.com/elsuarez2109-spec/Gestion-de-membresias-y-reservas-de-gimnasio.git
 cd Gestion-de-membresias-y-reservas-de-gimnasio
